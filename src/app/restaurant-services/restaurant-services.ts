@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Calendar } from '../common/components/calendar/calendar';
+import { Calendar } from './components/calendar/calendar';
 
 @Component({
   selector: 'restaurant-services',

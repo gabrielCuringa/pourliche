@@ -1,0 +1,21 @@
+<nav class="fixed bottom-0 left-0 right-0 flex h-16 items-center justify-around border-t bg-white">
+  <a
+    routerLink=""
+    [routerLinkActiveOptions]="{ exact: true }"
+    routerLinkActive="text-amber-700"
+    class="flex flex-col items-center"
+  >
+    <i class="pi pi-home"></i>
+    <span class="text-xs">Services</span>
+  </a>
+
+  <a
+    routerLink="/team"
+    [routerLinkActiveOptions]="{ exact: true }"
+    routerLinkActive="text-amber-700"
+    class="flex flex-col items-center"
+  >
+    <i class="pi pi-users"></i>
+    <span class="text-xs">Équipe</span>
+  </a>
+</nav>

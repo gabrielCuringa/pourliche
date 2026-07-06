@@ -5,6 +5,9 @@ import { DatePipe } from '@angular/common';
 import { DateService } from '../../../../common/services/date-service';
 import { RestaurantServicesFacade } from '../../facade/restaurant-services.facade';
 import { Skeleton } from 'primeng/skeleton';
+import { TabsModule } from 'primeng/tabs';
+import { ServicesSummaryComponent } from '../summary/services-summary.component';
+import { ServicesSummaryFacade } from '../summary/services-summary.facade';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarState {
@@ -35,17 +38,19 @@ export class CalendarState {
 @Component({
   selector: 'calendar',
   templateUrl: 'calendar.html',
-  imports: [ButtonModule, DatePipe, CalendarDay, Skeleton],
+  imports: [ButtonModule, DatePipe, CalendarDay, Skeleton, TabsModule, ServicesSummaryComponent],
   standalone: true,
 })
 export class Calendar {
   state = inject(CalendarState);
   readonly restaurantsServicesFacade = inject(RestaurantServicesFacade);
+  readonly servicesSummaryFacade = inject(ServicesSummaryFacade);
   weekDays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 
   constructor() {
     effect(() => {
       this.restaurantsServicesFacade.setPeriod(this.state.period());
+      this.servicesSummaryFacade.setPeriod(this.state.period());
     });
   }
 

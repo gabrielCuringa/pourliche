@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { SupabaseService } from '../../../common/supabase/supabase.service';
-import { EmployeeDto } from '../../../api/employees/dtos/employees.dto';
+import { EmployeeDto, EmployeeMonthlyTips } from '../../../api/employees/dtos/employees.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +22,17 @@ export class EmployeesService {
 
   async updateEmployee(id: number, name: string) {
     return await this.supabase.client.from('employee').update({ name }).eq('id', id);
+  }
+
+  async getEmployeesServicesSummary(period: string): Promise<EmployeeMonthlyTips[]> {
+    const { data, error } = await this.supabase.client
+      .from('employee_monthly_tips')
+      .select('*')
+      .eq('month', period)
+      .order('tips_amount', {
+        ascending: false,
+      });
+    if (error) throw error;
+    return data;
   }
 }

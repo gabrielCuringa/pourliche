@@ -106,6 +106,7 @@ export type Database = {
           employee_id: number | null
           employee_name: string | null
           month: string | null
+          services_count: number | null
           tips_amount: number | null
         }
         Relationships: []

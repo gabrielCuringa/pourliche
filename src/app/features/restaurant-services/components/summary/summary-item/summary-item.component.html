@@ -1,0 +1,11 @@
+<div class="flex flex-col items-start justify-between px-4 py-2">
+  <div class="w-full flex flex-row justify-between items-center">
+    <p class="text-sm font-semibold">{{ summary().employee_name }}</p>
+    <div class="flex flex-col items-end">
+      <p class="text-sm font-bold">{{ summary().tips_amount | currency: 'EUR' }}</p>
+      <p class="text-sm">
+        {{ 'services.summary.services_count' | translate: { count: summary().services_count } }}
+      </p>
+    </div>
+  </div>
+</div>

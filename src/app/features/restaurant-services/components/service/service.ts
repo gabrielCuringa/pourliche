@@ -14,6 +14,7 @@ import { minArrayLength } from '../../../../common/forms/form-validators';
 import { RestaurantServiceDto } from '../../../../api/restaurant-services/restaurant-services.dto';
 import { RestaurantServicesFacade } from '../../facade/restaurant-services.facade';
 import { DateService } from '../../../../common/services/date-service';
+import { ServicesSummaryFacade } from '../summary/services-summary.facade';
 
 @Component({
   selector: 'service',
@@ -38,6 +39,7 @@ export class ServiceComponent {
 
   readonly employeesFacade = inject(EmployeesFacade);
   readonly restaurantServicesFacade = inject(RestaurantServicesFacade);
+  readonly servicesSummaryFacade = inject(ServicesSummaryFacade);
   readonly dateService = inject(DateService);
 
   private fb = inject(FormBuilder);
@@ -75,6 +77,7 @@ export class ServiceComponent {
         shift: this.restaurantService().shift,
         tips: this.form.controls.tips.value!,
       });
+      this.servicesSummaryFacade.summary.reload();
       this.isDrawerVisible.set(false);
     } catch (error) {
       // display error message

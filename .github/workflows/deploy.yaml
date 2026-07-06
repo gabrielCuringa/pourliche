@@ -28,7 +28,7 @@ jobs:
 
       - run: npm ci
 
-      - run: ng build --configuration production --base-href /pourliche/
+      - run: npm run build:prod
 
       - uses: actions/upload-pages-artifact@v3
         with:

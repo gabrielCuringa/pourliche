@@ -1,0 +1,29 @@
+<p-button
+  label="Ajouter"
+  icon="pi pi-plus"
+  iconPos="left"
+  size="small"
+  severity="contrast"
+  (onClick)="isVisible.set(true)"
+></p-button>
+<p-drawer
+  [visible]="isVisible()"
+  (visibleChange)="isVisible.set($event)"
+  styleClass="h-fit rounded-t-2xl"
+  header="Créer"
+  showCloseIcon="true"
+  position="bottom"
+>
+  <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="save()">
+    <label pLabel for="employee-name">Nom</label>
+    <input pInputText inputId="employee-name" formControlName="name" />
+    <button
+      pButton
+      severity="contrast"
+      label="Enregistrer"
+      type="submit"
+      [loading]="employeesFacade.isCreating()"
+      [disabled]="form.invalid"
+    ></button>
+  </form>
+</p-drawer>

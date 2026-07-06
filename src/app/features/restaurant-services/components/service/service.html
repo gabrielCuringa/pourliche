@@ -1,0 +1,118 @@
+<p
+  class="w-full text-sm text-center truncate py-2"
+  [class.text-indigo-700]="restaurantService().shift === 'DINNER'"
+  [class.text-amber-700]="restaurantService().shift === 'LUNCH'"
+  (click)="isDrawerVisible.set(true)"
+>
+  @if (isServiceExists()) {
+    {{ restaurantService().tips | currency: 'EUR' : 'symbol' : '1.0-2' }}
+  } @else {
+    <i
+      class="w-full pi text-sm"
+      [class.pi-moon]="restaurantService().shift === 'DINNER'"
+      [class.pi-sun]="restaurantService().shift === 'LUNCH'"
+    ></i>
+  }
+</p>
+
+<p-drawer
+  [visible]="isDrawerVisible()"
+  (visibleChange)="isDrawerVisible.set($event)"
+  styleClass="h-fit rounded-t-2xl"
+  showCloseIcon="false"
+  position="bottom"
+>
+  <p-header>
+    <div class="flex flex-row items-center justify-between">
+      <div class="flex flex-row items-center">
+        @switch (restaurantService().shift) {
+          @case ('DINNER') {
+            <p-avatar
+              icon="pi pi-moon text-indigo-700"
+              class="mr-2"
+              size="normal"
+              shape="circle"
+              styleClass="bg-indigo-100"
+            />
+          }
+          @default {
+            <p-avatar
+              icon="pi pi-sun text-amber-700"
+              class="mr-2"
+              size="normal"
+              shape="circle"
+              styleClass="bg-amber-100"
+            />
+          }
+        }
+
+        <div class="flex flex-col">
+          <span class="text-lg font-semibold">{{
+            'shift.' + restaurantService().shift.toLowerCase() | translate
+          }}</span>
+          <span class="text-sm text-muted-foreground">{{
+            restaurantService().service_date | date: 'fullDate'
+          }}</span>
+        </div>
+      </div>
+
+      <p-button
+        icon="pi pi-times text-xs"
+        [rounded]="true"
+        styleClass="bg-grey-100 border-0"
+        severity="secondary"
+        (onClick)="isDrawerVisible.set(false)"
+      />
+    </div>
+  </p-header>
+  <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="upsert()">
+    <div class="flex flex-col gap-1">
+      <label pLabel class="items-start!" for="tips">Pourboires</label>
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-euro"></i>
+        </p-inputgroup-addon>
+        <p-inputnumber
+          class="bg-amber-200"
+          inputId="tips"
+          formControlName="tips"
+          mode="decimal"
+          [maxFractionDigits]="2"
+        />
+      </p-inputgroup>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      @for (employee of employeesFacade.employees.value(); track employee.id) {
+        <p-chip
+          label="{{ employee.name }}"
+          class="cursor-pointer"
+          [class.bg-amber-500]="isEmployeeSelected(employee.id)"
+          [class.text-primary-contrast]="isEmployeeSelected(employee.id)"
+          (click)="onEmployeeSelected(employee.id)"
+        />
+      }
+    </div>
+
+    <div class="w-full flex flex-row gap-1">
+      <button
+        pButton
+        severity="contrast"
+        label="Enregistrer"
+        type="submit"
+        class="w-full"
+        [loading]="restaurantServicesFacade.state().isUpserting"
+        [disabled]="form.invalid"
+      ></button>
+      <!-- <button
+        pButton
+        severity="danger"
+        label="Supprimer"
+        type="button"
+        class="w-full"
+        [loading]="employeesFacade.isDeleting()"
+        (click)="delete()"
+      ></button> -->
+    </div>
+  </form>
+</p-drawer>

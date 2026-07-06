@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PrimeNG } from 'primeng/config';
 import translationsFR from '../../public/i18n/fr.json';
 import { BottomBar } from './common/bottom-bar/bottom-bar/bottom-bar';
+import { AuthFacade } from './features/auth/facade/auth.facade';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { BottomBar } from './common/bottom-bar/bottom-bar/bottom-bar';
 export class App {
   protected readonly title = signal('pourliche');
   private translate = inject(TranslateService);
+  readonly authFacade = inject(AuthFacade);
 
   constructor(private primeng: PrimeNG) {
     this.translate.setTranslation('fr', translationsFR);

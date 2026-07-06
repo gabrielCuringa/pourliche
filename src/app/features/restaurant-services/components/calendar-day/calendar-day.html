@@ -1,0 +1,27 @@
+<div
+  class="flex flex-col items-center bg-white border rounded-2xl h-full"
+  [class.border-amber-600]="isToday()"
+  [class.border-gray-200]="!isToday()"
+>
+  <div
+    class="w-full text-center rounded-t-2xl"
+    [class.bg-amber-600]="isToday()"
+    [class.font-bold]="isToday()"
+    [class.text-white]="isToday()"
+    [class.text-muted-foreground]="!isToday()"
+  >
+    <p class="w-full border-b text-center py-1">{{ day().getDate() }}</p>
+  </div>
+  <div
+    class="flex flex-col justify-between w-full items-stretch justify-items-center rounded-b-2xl"
+  >
+    @for (shift of shifts; track shift; let last = $last) {
+      <service
+        [class.mb-1]="!last"
+        [class.mb-1]="last"
+        [class.border-b]="!last"
+        [restaurantService]="this.buildService(day(), shift)"
+      />
+    }
+  </div>
+</div>

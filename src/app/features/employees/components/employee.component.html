@@ -1,0 +1,41 @@
+<div
+  class="flex flex-row items-center justify-between bg-neutral-50 px-4 py-2 border rounded-xl"
+  (click)="isDetailVisible.set(true)"
+>
+  <p>{{ employee()?.name }}</p>
+  <i class="pi pi-chevron-right text-xs text-neutral-900"></i>
+</div>
+
+<p-drawer
+  [visible]="isDetailVisible()"
+  (visibleChange)="isDetailVisible.set($event)"
+  styleClass="h-fit rounded-t-2xl"
+  header="Modifier"
+  showCloseIcon="true"
+  position="bottom"
+>
+  <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="update()">
+    <label pLabel for="employee-name">Nom</label>
+    <input pInputText inputId="employee-name" formControlName="name" />
+    <div class="w-full flex flex-row gap-1">
+      <button
+        pButton
+        severity="contrast"
+        label="Enregistrer"
+        type="submit"
+        class="w-full"
+        [loading]="employeesFacade.isUpdating()"
+        [disabled]="form.invalid"
+      ></button>
+      <button
+        pButton
+        severity="danger"
+        label="Supprimer"
+        type="button"
+        class="w-full"
+        [loading]="employeesFacade.isDeleting()"
+        (click)="delete()"
+      ></button>
+    </div>
+  </form>
+</p-drawer>

@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="login()" class="h-screen flex">
+  <div class="m-auto flex flex-col gap-4 p-4 items-center bg-white rounded-xl border">
+    <div class="flex flex-col gap-1">
+      <label for="email">Email</label>
+      <input id="email" pInputText type="email" formControlName="email" />
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="password"> Mot de passe </label>
+      <input
+        inputId="password"
+        pPassword
+        formControlName="pwd"
+        [feedback]="false"
+        type="password"
+      />
+    </div>
+
+    <button
+      pButton
+      type="submit"
+      label="Se connecter"
+      class="w-full"
+      severity="contrast"
+      [loading]="authFacade.state().loading"
+      [disabled]="form.invalid || authFacade.state().loading"
+    ></button>
+  </div>
+</form>
+
+<p-toast
+  key="login-error"
+  position="top-center"
+  [breakpoints]="{ '920px': { width: '80%', right: 'auto' } }"
+/>

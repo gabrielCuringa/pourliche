@@ -1,0 +1,24 @@
+<div class="flex flex-col px-4 py-6 gap-4">
+  <div class="flex flex-row items-center justify-between">
+    <p>
+      @if (!employeesFacade.shouldShowLoader()) {
+        {{ 'team.employees' | translate: { count: employeesFacade.employees.value()?.length } }}
+      } @else {
+        <p-skeleton width="6rem" />
+      }
+    </p>
+
+    <create-employee />
+  </div>
+  <div class="flex flex-col gap-2">
+    @if (employeesFacade.shouldShowLoader()) {
+      <p-skeleton class="rounded-xl" height="3rem" />
+      <p-skeleton class="rounded-xl" height="3rem" />
+      <p-skeleton class="rounded-xl" height="3rem" />
+    } @else {
+      @for (employee of employeesFacade.employees.value(); track employee.id) {
+        <employee [employee]="employee" />
+      }
+    }
+  </div>
+</div>

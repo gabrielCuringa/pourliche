@@ -2,7 +2,9 @@ import { Component, inject, Injectable, signal, effect, computed } from '@angula
 import { CalendarDay } from '../calendar-day/calendar-day';
 import { ButtonModule } from 'primeng/button';
 import { DatePipe } from '@angular/common';
-import { DateService } from '../../../common/services/date-service';
+import { DateService } from '../../../../common/services/date-service';
+import { RestaurantServicesFacade } from '../../facade/restaurant-services.facade';
+import { Skeleton } from 'primeng/skeleton';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarState {
@@ -33,12 +35,19 @@ export class CalendarState {
 @Component({
   selector: 'calendar',
   templateUrl: 'calendar.html',
-  imports: [ButtonModule, DatePipe, CalendarDay],
+  imports: [ButtonModule, DatePipe, CalendarDay, Skeleton],
   standalone: true,
 })
 export class Calendar {
   state = inject(CalendarState);
+  readonly restaurantsServicesFacade = inject(RestaurantServicesFacade);
   weekDays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+
+  constructor() {
+    effect(() => {
+      this.restaurantsServicesFacade.setPeriod(this.state.period());
+    });
+  }
 
   getGridColumnStart(date: Date): number {
     return ((date.getDay() + 6) % 7) + 1;

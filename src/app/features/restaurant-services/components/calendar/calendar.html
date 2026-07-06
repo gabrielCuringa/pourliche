@@ -30,10 +30,21 @@
     }
 
     @for (day of state.days(); track day.getTime(); let first = $first) {
-      <calendar-day
-        [style.grid-column-start]="first ? getGridColumnStart(day) : null"
-        [day]="day"
-      />
+      @if (
+        restaurantsServicesFacade.services.isLoading() &&
+        !restaurantsServicesFacade.services.hasValue()
+      ) {
+        <p-skeleton
+          height="6.4rem"
+          class="rounded-2xl"
+          [style.grid-column-start]="first ? getGridColumnStart(day) : null"
+        />
+      } @else {
+        <calendar-day
+          [style.grid-column-start]="first ? getGridColumnStart(day) : null"
+          [day]="day"
+        />
+      }
     }
   </div>
 </div>

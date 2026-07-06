@@ -1,13 +1,19 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { definePreset } from '@primeuix/themes';
-import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateCompiler, provideTranslateService } from '@ngx-translate/core';
+import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
+import localeFr from '@angular/common/locales/fr';
 
 import Aura from '@primeuix/themes/aura';
+import { MessageService } from 'primeng/api';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeFr);
 
 const Theme = definePreset(Aura, {
   semantic: {
@@ -45,11 +51,17 @@ const Theme = definePreset(Aura, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR',
+    },
+    MessageService,
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideTranslateService({
       fallbackLang: 'fr',
       lang: 'fr',
+      compiler: provideTranslateCompiler(TranslateMessageFormatCompiler),
     }),
     provideAnimationsAsync(),
     providePrimeNG({

@@ -3,6 +3,8 @@
     <div class="content">
       <router-outlet />
     </div>
-    <bottom-bar />
+    @if (authFacade.isAuthenticated()) {
+      <bottom-bar />
+    }
   </main>
 </div>

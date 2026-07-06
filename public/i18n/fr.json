@@ -3,5 +3,8 @@
     "aa": "adz",
     "lunch": "Service du midi",
     "dinner": "Service du soir"
+  },
+  "team": {
+    "employees": "{ count, plural, =0 {# employé} one {# employé} other {# employés} }"
   }
 }

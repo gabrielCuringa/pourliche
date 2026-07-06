@@ -1,5 +1,5 @@
 import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 
 import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
@@ -57,7 +57,7 @@ export const appConfig: ApplicationConfig = {
     },
     MessageService,
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     provideTranslateService({
       fallbackLang: 'fr',
       lang: 'fr',

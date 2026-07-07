@@ -1,0 +1,12 @@
+<i
+  class="w-full pi text-sm"
+  [class.px-1]="squared()"
+  [class.py-1]="squared()"
+  [class.rounded-sm]="squared()"
+  [class.bg-indigo-200]="shift() === 'DINNER' && squared()"
+  [class.text-indigo-700]="shift() === 'DINNER'"
+  [class.pi-moon]="shift() === 'DINNER'"
+  [class.bg-amber-200]="shift() === 'LUNCH' && squared()"
+  [class.pi-sun]="shift() === 'LUNCH'"
+  [class.text-amber-700]="shift() === 'LUNCH'"
+></i>

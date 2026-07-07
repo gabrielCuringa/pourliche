@@ -7,11 +7,7 @@
   @if (isServiceExists()) {
     {{ restaurantService().tips | currency: 'EUR' : 'symbol' : '1.0-2' }}
   } @else {
-    <i
-      class="w-full pi text-sm"
-      [class.pi-moon]="restaurantService().shift === 'DINNER'"
-      [class.pi-sun]="restaurantService().shift === 'LUNCH'"
-    ></i>
+    <shift-icon [shift]="restaurantService().shift"></shift-icon>
   }
 </p>
 

@@ -15,6 +15,7 @@ import { RestaurantServiceDto } from '../../../../api/restaurant-services/restau
 import { RestaurantServicesFacade } from '../../facade/restaurant-services.facade';
 import { DateService } from '../../../../common/services/date-service';
 import { ServicesSummaryFacade } from '../summary/services-summary.facade';
+import { ShiftIconComponent } from '../shift-icon/shift-icon.component';
 
 @Component({
   selector: 'service',
@@ -32,6 +33,7 @@ import { ServicesSummaryFacade } from '../summary/services-summary.facade';
     InputGroup,
     InputGroupAddon,
     CurrencyPipe,
+    ShiftIconComponent,
   ],
 })
 export class ServiceComponent {

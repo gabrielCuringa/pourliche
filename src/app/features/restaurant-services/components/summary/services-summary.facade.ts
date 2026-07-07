@@ -1,7 +1,10 @@
 import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { EmployeesService } from '../../../employees/services/employees-service';
 import { DateService } from '../../../../common/services/date-service';
-import { EmployeeMonthlyTips } from '../../../../api/employees/dtos/employees.dto';
+import {
+  EmployeeServiceSummaryItemDto,
+  EmployeeServiceSummaryGroupedDto,
+} from '../../../../api/employees/dtos/employees.dto';
 
 type State = { currentPeriod?: Date };
 
@@ -15,7 +18,7 @@ export class ServicesSummaryFacade {
   readonly state = signal<State>({});
   readonly currentPeriod = computed(() => this.state().currentPeriod);
 
-  readonly summary = resource<EmployeeMonthlyTips[], { currentPeriod?: Date }>({
+  readonly summary = resource<EmployeeServiceSummaryGroupedDto[], { currentPeriod?: Date }>({
     params: () => {
       return { currentPeriod: this.currentPeriod() };
     },

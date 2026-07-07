@@ -3,9 +3,16 @@
     <p class="text-sm font-semibold">{{ summary().employee_name }}</p>
     <div class="flex flex-col items-end">
       <p class="text-sm font-bold">{{ summary().tips_amount | currency: 'EUR' }}</p>
-      <p class="text-sm">
-        {{ 'services.summary.services_count' | translate: { count: summary().services_count } }}
-      </p>
+      <div class="flex flex-row gap-3 items-center">
+        @for (shift of summary().shifts; track shift.type) {
+          <div class="flex flex-row gap-1 items-center">
+            <p class="text-sm">
+              {{ shift.count }}
+            </p>
+            <shift-icon [squared]="true" [shift]="shift.type" />
+          </div>
+        }
+      </div>
     </div>
   </div>
 </div>

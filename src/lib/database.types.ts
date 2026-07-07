@@ -63,7 +63,7 @@ export type Database = {
             foreignKeyName: "employee_service_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_monthly_tips"
+            referencedRelation: "employee_service_summary"
             referencedColumns: ["employee_id"]
           },
           {
@@ -101,12 +101,13 @@ export type Database = {
       }
     }
     Views: {
-      employee_monthly_tips: {
+      employee_service_summary: {
         Row: {
           employee_id: number | null
           employee_name: string | null
           month: string | null
           services_count: number | null
+          shift_type: Database["public"]["Enums"]["Shift"] | null
           tips_amount: number | null
         }
         Relationships: []

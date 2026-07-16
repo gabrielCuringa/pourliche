@@ -92,6 +92,17 @@
       </div>
 
       <div class="w-full flex flex-row gap-1">
+        @if (this.isServiceExists()) {
+          <button
+            pButton
+            severity="danger"
+            label="Supprimer"
+            type="button"
+            class="w-full"
+            [loading]="restaurantServicesFacade.state().isDeleting"
+            (click)="delete()"
+          ></button>
+        }
         <button
           pButton
           severity="contrast"
@@ -101,15 +112,6 @@
           [loading]="restaurantServicesFacade.state().isUpserting"
           [disabled]="form.invalid"
         ></button>
-        <!-- <button
-        pButton
-        severity="danger"
-        label="Supprimer"
-        type="button"
-        class="w-full"
-        [loading]="employeesFacade.isDeleting()"
-        (click)="delete()"
-      ></button> -->
       </div>
     </form>
   </div>

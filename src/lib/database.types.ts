@@ -114,6 +114,10 @@ export type Database = {
       }
     }
     Functions: {
+      delete_service_and_sync: {
+        Args: { p_service_id: number }
+        Returns: undefined
+      }
       get_services_for_month: {
         Args: { p_end_date: string; p_start_date: string }
         Returns: {

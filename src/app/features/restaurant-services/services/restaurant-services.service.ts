@@ -25,4 +25,10 @@ export class RestaurantServicesService {
       p_tips: dto.tips,
     });
   }
+
+  async deleteService(id: number) {
+    return await this.supabase.client.rpc('delete_service_and_sync', {
+      p_service_id: id,
+    });
+  }
 }

@@ -7,7 +7,7 @@ import {
 } from '../../../api/restaurant-services/restaurant-services.dto';
 import { DateService } from '../../../common/services/date-service';
 
-type State = { isUpserting: boolean; currentPeriod?: Date };
+type State = { isUpserting: boolean; isDeleting: boolean; currentPeriod?: Date };
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +18,7 @@ export class RestaurantServicesFacade {
 
   readonly state = signal<State>({
     isUpserting: false,
+    isDeleting: false,
   });
 
   readonly currentPeriod = computed(() => this.state().currentPeriod);
@@ -57,6 +58,20 @@ export class RestaurantServicesFacade {
     } finally {
       this.state.update((s) => {
         return { ...s, isUpserting: false };
+      });
+    }
+  }
+
+  async delete(id: number) {
+    this.state.update((s) => {
+      return { ...s, isDeleting: true };
+    });
+    try {
+      await this.service.deleteService(id);
+      this.services.reload();
+    } finally {
+      this.state.update((s) => {
+        return { ...s, isDeleting: false };
       });
     }
   }

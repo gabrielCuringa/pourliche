@@ -103,4 +103,10 @@ export class ServiceComponent {
   isEmployeeSelected(id: number) {
     return this.form.controls.employeeIds.getRawValue().includes(id);
   }
+
+  async delete() {
+    await this.restaurantServicesFacade.delete(this.restaurantService()?.service_id);
+    this.servicesSummaryFacade.summary.reload();
+    this.isDrawerVisible.set(false);
+  }
 }
